@@ -10,7 +10,7 @@ class Contestant():
         self.phone_number = phone_number
         self.date_of_birth = date_of_birth
         self.student_career = student_career
-        self. genre_of_poetry  =  genre_of_poetry 
+        self.genre_of_poetry  = genre_of_poetry 
         self.Registration_date = Registration_date
         self.declamation_date  = declamation_date 
         self.age = age
@@ -24,7 +24,7 @@ class List():
         self.phone_number = phone_number
         self.date_of_birth = date_of_birth
         self.student_career = student_career
-        self. genre_of_poetry  =  genre_of_poetry 
+        self.genre_of_poetry  =  genre_of_poetry 
         self.Registration_date = Registration_date
         self.declamation_date  = declamation_date 
         self.age = age
