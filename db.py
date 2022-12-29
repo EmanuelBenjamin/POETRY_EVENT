@@ -1,7 +1,6 @@
 import psycopg2
-from psycopg2 import DatabaseError
 from decouple import config
-
+from psycopg2 import DatabaseError
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column, Integer, String, create_engine, Date  
 
@@ -30,10 +29,9 @@ class contestant (Base):
     student_career = Column(String,nullable = False )
     genre_of_poetry = Column(String,nullable = False )
     Registration_date = Column(Date,nullable = False )
-    registration_date = Column(Date,nullable = False )
+    declamation_date = Column(Date,nullable = False )
+    age = Column(Integer, nullable = False)
 
-
-   
 
 engine = create_engine('postgresql://postgres:12345@localhost/database1')
 Base.metadata.create_all(engine)
