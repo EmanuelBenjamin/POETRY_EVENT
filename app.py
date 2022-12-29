@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 
 
-
+app.register_blueprint(route.contestant_main,ulr_prefix = '/inscription')
 
 
 app.register_error_handler(404, page_not_found)
