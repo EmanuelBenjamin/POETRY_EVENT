@@ -19,33 +19,33 @@ def List_contestants():
     except Exception as ex:
         return jsonify({'Message':str(ex)}),500
 
-@studentForm_main.route('/', methods = ['POST'])
+@contestant_main.route('/', methods = ['POST'])
 def form():
     try:
         #lo datos que pediremos desde postman
-        carnet = request.json['carnet']
-        fullname = request.json['fullname']
-        address = request.json['address']
+        card = request.json['card']
+        full_name = request.json['full_name']
+        direction = request.json['direction']
         gender = request.json['gender']
         phone_number = request.json['phone_number']
-        birth_date = request.json['birth_date']
-        career = request.json['career']
-        genre = request.json['genre']
-        if not val_carnet(carnet):
-            return jsonify({'message': 'Carnet no valido'}), 400
+        date_of_birth = request.json['date_of_birth']
+        student_career = request.json['student_career']
+        genre_of_poetry  = request.json['genre_of_poetry ']
+        if not val_card(card):
+            return jsonify({'message': 'Invalid card'}), 400
         else:
-            if not val_birth_date(birth_date):
-                return jsonify({'message': 'Eres menor de edad'}), 400
+            if not val_date_of_birth (date_of_birth):
+                return jsonify({'message': 'You are underage'}), 400
             else:
                 #codigo para subir datos a db
                 today = datetime.datetime.now()
-                if carnet[5] == '1' and genre == 'dramatico':
+                if card[5] == '1' and genre == 'dramatic':
                     days_inc = 5
                     while days_inc > 0:
                         today += datetime.timedelta(days=1)
                         if today.weekday() not in (5, 6):
                             days_inc -= 1
-                elif carnet[5] == '3' and genre == 'epica':
+                elif card[5] == '3' and genre == 'epic':
                     month_last_day = (datetime.datetime(today.year, today.month, 1) - datetime.timedelta(days=1)).day
                     today = datetime.datetime(today.year, today.month, month_last_day)
                     while today.weekday() in (5, 6):
@@ -54,9 +54,9 @@ def form():
                     while today.weekday() != 4:
                         today += datetime.timedelta(days=1)      
                 part_date = today.strftime('%Y-%m-%d')
-                edad = obEdad(birth_date)
-                age = edad.years
-                form = Form("", carnet, fullname, address, gender, phone_number, birth_date, career, genre, "", part_date, age )
+                age = obAge(date_of_birth)
+                age = age.years
+                form = Form("", card, full_name, direction, gender, phone_number, date_of_birth, student_career, genre_of_poetry, "", genre_of_poetry, age )
                 affected_row = formModel.form(form)
                 if affected_row == 1:
                     return jsonify('Agregado')
@@ -64,22 +64,22 @@ def form():
                         return None
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
-def val_carnet(carnet):
-            if len(carnet) != 6:
+def val_card(card):
+            if len(card) != 6:
                 return False
-            if carnet[0].upper() != 'A':
+            if card[0].upper() != 'A':
                 return False
-            if carnet[2] != '5':
+            if card[2] != '5':
                 return False
-            if carnet[-1] not in ('1','3','9'):
+            if card[-1] not in ('1','3','9'):
                 return False
             return True
-def val_birth_date(birth_date):
+def val_date_of_birth(date_of_birth):
     try:
-        birth_date = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
+        date_of_birth = datetime.datetime.strptime(date_of_birth, '%Y-%m-%d')
     except ValueError:
         return False
     today = datetime.datetime.now()
 
-    return (today - birth_date).days // 365 >= 17
+    return (today - date_of_birth).days // 365 >= 17
 
