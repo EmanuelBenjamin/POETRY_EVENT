@@ -1,16 +1,16 @@
 from flask import Blueprint, jsonify, request
-from entities import Form
+from entities import Contestant
 import datetime
-from models import formModel, ListModel
+from models import contestantsModel, ListModel
 from dateutil.relativedelta import relativedelta
 from age import obAge
 
 
 
-Contestant_main = Blueprint('contestant_main_blueprint', __name__)
-ContestantList_main = Blueprint('contestantList_main_blueprint', __name__)
+Contestant_main = Blueprint('Contestant_main_blueprint', __name__)
+ContestantList_main = Blueprint('ContestantList_main_blueprint', __name__)
 
-@contestantList_main.route('/', methods = ['GET'])
+@ContestantList_main.route('/', methods = ['GET'])
 def List_contestants():
     try:
 
@@ -19,10 +19,10 @@ def List_contestants():
     except Exception as ex:
         return jsonify({'Message':str(ex)}),500
 
-@contestant_main.route('/', methods = ['POST'])
+@Contestant_main.route('/', methods = ['POST'])
 def form():
     try:
-        #lo datos que pediremos desde postman
+        
         card = request.json['card']
         full_name = request.json['full_name']
         direction = request.json['direction']
@@ -30,22 +30,22 @@ def form():
         phone_number = request.json['phone_number']
         date_of_birth = request.json['date_of_birth']
         student_career = request.json['student_career']
-        genre_of_poetry  = request.json['genre_of_poetry ']
+        genre_of_poetry  = request.json['genre_of_poetry']
         if not val_card(card):
             return jsonify({'message': 'Invalid card'}), 400
         else:
             if not val_date_of_birth (date_of_birth):
                 return jsonify({'message': 'You are underage'}), 400
             else:
-                #codigo para subir datos a db
+                
                 today = datetime.datetime.now()
-                if card[5] == '1' and genre == 'dramatic':
+                if card[5] == '1' and genre_of_poetry == 'dramatic':
                     days_inc = 5
                     while days_inc > 0:
                         today += datetime.timedelta(days=1)
                         if today.weekday() not in (5, 6):
                             days_inc -= 1
-                elif card[5] == '3' and genre == 'epic':
+                elif card[5] == '3' and genre_of_poetry == 'epic':
                     month_last_day = (datetime.datetime(today.year, today.month, 1) - datetime.timedelta(days=1)).day
                     today = datetime.datetime(today.year, today.month, month_last_day)
                     while today.weekday() in (5, 6):
@@ -59,7 +59,7 @@ def form():
                 form = Form("", card, full_name, direction, gender, phone_number, date_of_birth, student_career, genre_of_poetry, "", genre_of_poetry, age )
                 affected_row = formModel.form(form)
                 if affected_row == 1:
-                    return jsonify('Agregado')
+                    return jsonify('Aggregate')
                 else: 
                         return None
     except Exception as ex:

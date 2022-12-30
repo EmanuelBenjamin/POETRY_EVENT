@@ -2,7 +2,7 @@ import psycopg2
 from decouple import config
 from psycopg2 import DatabaseError
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, create_engine, Date  
+from sqlalchemy import Column, Integer, String, create_engine, Date
 
 Base = declarative_base()
 def get_conection():
@@ -28,9 +28,9 @@ class contestant (Base):
     date_of_birth = Column(String,nullable = False )
     student_career = Column(String,nullable = False )
     genre_of_poetry = Column(String,nullable = False )
-    Registration_date = Column(Date,nullable = False )
+    registration_date = Column(Date,nullable = False )
     declamation_date = Column(Date,nullable = False )
-    age = Column(Integer, nullable = False)
+    age = Column(String,nullable = False)
 
 
 engine = create_engine('postgresql://postgres:12345@localhost/database1')

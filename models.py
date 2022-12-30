@@ -9,7 +9,7 @@ class ListModel():
             connection = get_conection()
             contestants = []
             with connection.cursor() as cursor:
-                cursor.execute("""SELECT card, full_name, direction, gender, phone_number, date_of_birth, student_career,  genre_of_poetry, Registration_date, declamation_date, age FROM contestants ORDER BY full_name ASC""")
+                cursor.execute("""SELECT card, full_name, direction, gender, phone_number, date_of_birth, student_career,  genre_of_poetry, registration_date, declamation_date, age FROM contestants ORDER BY full_name ASC""")
                 resulset = cursor.fetchall()
 
                 for row in resulset:
@@ -27,8 +27,8 @@ class contestantsModel():
             connection = get_conection()
 
             with connection.cursor() as cursor:
-                cursor.execute("""INSERT INTO contestants(card, full_name, direction, gender, phone_number, date_of_birth, student_career,  genre_of_poetry, Registration_date, declamation_date, age)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s , %s, %s, %s)""".format(), (contestants.card,contestants.full_name, contestants.direction, contestants.gender, contestants.phone_number,contestants.date_of_birth, contestants.student_career,  contestants.genre_of_poetry, contestants.Registration_date, contestants.declamation_date, contestants.age))
+                cursor.execute("""INSERT INTO contestants(card, full_name, direction, gender, phone_number, date_of_birth, student_career,  genre_of_poetry, registration_date, declamation_date, age)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s , %s, %s, %s)""".format(), (contestants.card,contestants.full_name, contestants.direction, contestants.gender, contestants.phone_number,contestants.date_of_birth, contestants.student_career,  contestants.genre_of_poetry, contestants.registration_date, contestants.declamation_date, contestants.age))
                 affected_row = cursor.rowcount
                 connection.commit
             conection.close()

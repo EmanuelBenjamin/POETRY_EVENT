@@ -1,6 +1,6 @@
 from  flask import Flask
 from config import config
-import route
+import routes
 
 
 app = Flask(__name__)
@@ -13,8 +13,8 @@ if __name__ == '__main__':
 
 
 
-app.register_blueprint(route.contestant_main,url_prefix = '/inscription')
-app.register_blueprint(route.contestantList_main, url_prefix ='/list' )
+app.register_blueprint(routes.Contestant_main,url_prefix = '/inscription')
+app.register_blueprint(routes.ContestantList_main, url_prefix ='/list' )
 
 
 app.register_error_handler(404, page_not_found)
