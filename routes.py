@@ -14,7 +14,7 @@ ContestantList_main = Blueprint('ContestantList_main_blueprint', __name__)
 def List_contestants():
     try:
 
-        contestants = Listcontestants.get_Contestant()
+        contestants = ListModel.get_Contestant()
         return jsonify(contestants)
     except Exception as ex:
         return jsonify({'Message':str(ex)}),500
@@ -56,8 +56,8 @@ def form():
                 part_date = today.strftime('%Y-%m-%d')
                 age = obAge(date_of_birth)
                 age = age.years
-                form = Form("", card, full_name, direction, gender, phone_number, date_of_birth, student_career, genre_of_poetry, "", genre_of_poetry, age )
-                affected_row = formModel.form(form)
+                form = Contestant("", card, full_name, direction, gender, phone_number, date_of_birth, student_career, genre_of_poetry, "", part_date, age )
+                affected_row = contestantsModel.contestants(form)
                 if affected_row == 1:
                     return jsonify('Aggregate')
                 else: 
