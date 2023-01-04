@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 
 def obAge(birth):
     birth = datetime.strptime(birth, '%Y-%m-%d')
-    age = relativedelta(datetime.now(), birth )
-    return age
+    age1 = relativedelta(datetime.now(), birth )
+    return age1
 
     

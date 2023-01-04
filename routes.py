@@ -31,6 +31,7 @@ def form():
         date_of_birth = request.json['date_of_birth']
         student_career = request.json['student_career']
         genre_of_poetry  = request.json['genre_of_poetry']
+        
         if not val_card(card):
             return jsonify({'message': 'Invalid card'}), 400
         else:
@@ -54,8 +55,8 @@ def form():
                     while today.weekday() != 4:
                         today += datetime.timedelta(days=1)      
                 part_date = today.strftime('%Y-%m-%d')
-                age = obAge(date_of_birth)
-                age = age.years
+                age1 = obAge(date_of_birth)
+                age = age1.years
                 form = Contestant("", card, full_name, direction, gender, phone_number, date_of_birth, student_career, genre_of_poetry, "", part_date, age )
                 affected_row = contestantsModel.contestants(form)
                 if affected_row == 1:
@@ -82,4 +83,3 @@ def val_date_of_birth(date_of_birth):
     today = datetime.datetime.now()
 
     return (today - date_of_birth).days // 365 >= 17
-
